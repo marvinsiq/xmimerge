@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'xmimerge'
+require 'thor'
+require File.join(File.dirname(__FILE__), '../lib/xmimerge/util.rb')
+
+class XmiMergeRunner < Thor	
+
+	desc 'c [OPTIONS]', "check"
+	method_option :from, :type => :string, :required => true, :aliases => '-f', :banner => "Path of the source model."
+	method_option :to, :type => :string, :required => true, :aliases => '-t', :banner => "Path of the target model."
+	def c
+		begin						
+			inicio = Time.now			
+			@merge = XmiMerge.new(options[:from], options[:to])			
+			@merge.check
+			App.logger.info "Total Time: #{diff_time(inicio, Time.now)}"
+		rescue Exception => e 
+			App.logger.error e.message
+			puts e.backtrace.join("\n")
+		end		
+	end
+
+	desc 'm [OPTIONS]', "merge"
+	method_option :from, :type => :string, :required => true, :aliases => '-f', :banner => "Path of the source model."
+	method_option :to, :type => :string, :required => true, :aliases => '-t', :banner => "Path of the target model."
+	method_option :output, :type => :string, :required => false, :aliases => '-o', :banner => "Output path."
+	def m
+		begin
+			inicio = Time.now			
+			@merge = XmiMerge.new(options[:from], options[:to])			
+			@merge.merge
+			if options[:output].nil?
+				@merge.save				
+			else
+				@merge.save(options[:output])
+			end
+			App.logger.info "Total Time: #{diff_time(inicio, Time.now)}"
+		rescue Exception => e 
+			App.logger.error e.message
+			puts e.backtrace.join("\n")
+		end		
+	end
+end
+
+def diff_time(start_time, end_time = Time.now)
+	diff = (end_time - start_time)
+	s = (diff % 60).to_i
+	m = (diff / 60).to_i
+	h = (m / 60).to_i
+
+	if s > 0
+	  "#{(h < 10) ? '0' + h.to_s : h}:#{(m < 10) ? '0' + m.to_s : m}:#{(s < 10) ? '0' + s.to_s : s}"
+	else
+	  format("%.5f", diff) + " miliseconds."
+	end
+end	
+
+App.logger.info App.specification.summary + " " + App.specification.version.to_s
+XmiMergeRunner.start
