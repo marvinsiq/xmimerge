@@ -27,7 +27,7 @@ class MergeAttribute < Merge
 
 	def check_changes(from_attribute)
 
-		@log.debug("Checking attribute: #{@from_class.full_name}::#{from_attribute.name}") if @only_check
+		@log.debug("Checking Attribute '#{@from_class.full_name}::#{from_attribute.name}'") if @only_check
 
 		# Localiza o atributo no modelo destino pelo nome
 		to_attribute = @to_class.attribute_by_name(from_attribute.name)

@@ -21,7 +21,7 @@ class MergeStereotypes < Merge
 
 	def check_changes(from_stereotype)
 
-		@log.debug("Checking Stereotype of #{@name} #{from_stereotype.name}...")
+		@log.debug("Checking Stereotype (#{from_stereotype.name}) of #{@name}...")
 
 		to_stereotype = @to_tag.stereotype_by_name(from_stereotype.name)
 
@@ -32,7 +32,7 @@ class MergeStereotypes < Merge
 
 	def new_stereotype(from_stereotype)
 
-		@log.debug("New Stereotype of #{@name} #{from_stereotype.name}...")
+		@log.debug("New Stereotype (#{from_stereotype.name}) of #{@name}...")
 
 		command = "\t+ #{@name}Stereotype #{@from_tag.full_name} {'#{from_stereotype.name}'}"
 		@commands.add_command_to_buffer(command)

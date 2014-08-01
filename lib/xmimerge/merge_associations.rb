@@ -2,6 +2,7 @@
 
 require File.join(File.dirname(__FILE__), 'merge.rb')
 require File.join(File.dirname(__FILE__), 'util.rb')
+require File.join(File.dirname(__FILE__), 'merge_associations_end.rb')
 require File.join(File.dirname(__FILE__), 'merge_stereotypes.rb')
 require File.join(File.dirname(__FILE__), 'merge_tagged_values.rb')
 require File.join(File.dirname(__FILE__), 'merge_multiplicity.rb')
@@ -17,7 +18,7 @@ class MergeAssociations < Merge
 	def verify
 
 		@from_class.associations.each do |from_association|		
-			#check_changes(from_association)
+			check_changes(from_association)
 		end
 
 		#check_removed
@@ -32,7 +33,7 @@ class MergeAssociations < Merge
 		to_association = @to_class.xml_root.association_by_id(from_association.id)
 
 		if to_association.nil?
-			# Se não encontrou é poque é um nova associação
+			# Se não encontrou é poque é uma nova associação
 			new_association from_association
 		else
 			# Associação já existe, verifica se houve alterações
@@ -67,7 +68,9 @@ class MergeAssociations < Merge
 
 	# @param [Association, #read] from_association.
 	def new_association(from_association)
-		@log.debug("New Attribute")		
+		@log.debug("New Association")		
+
+		puts "teste " + from_association.class.name
 
 		command = "\t+ Association #{from_association.full_name}"
 		@commands.add_command_to_buffer(command)

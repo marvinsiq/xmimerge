@@ -22,7 +22,7 @@ class MergePackages < Merge
 
 	def check_changes(from_package)
 
-		@log.info("Checking Package #{from_package.full_name}") if @only_check
+		@log.info("Checking Package '#{from_package.full_name}'") if @only_check
 
 		to_package = @to.package_by_full_name(from_package.full_name)
 

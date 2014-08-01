@@ -27,7 +27,7 @@ class MergeClasses < Merge
 
 		to_class = @to_package.class_by_name(from_class.name)
 
-		@log.info("Checking Class #{from_class.full_name}") if @only_check
+		@log.info("Checking Class '#{from_class.full_name}'") if @only_check
 
 		if to_class.nil?
 			new_class from_class

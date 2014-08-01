@@ -7,7 +7,7 @@ require File.join(File.dirname(__FILE__), '../lib/xmimerge/util.rb')
 
 class XmiMergeRunner < Thor	
 
-	desc 'c [OPTIONS]', "check"
+	desc 'c [OPTIONS]', "Check"
 	method_option :from, :type => :string, :required => true, :aliases => '-f', :banner => "Path of the source model."
 	method_option :to, :type => :string, :required => true, :aliases => '-t', :banner => "Path of the target model."
 	def c
@@ -22,7 +22,7 @@ class XmiMergeRunner < Thor
 		end		
 	end
 
-	desc 'm [OPTIONS]', "merge"
+	desc 'm [OPTIONS]', "Merge"
 	method_option :from, :type => :string, :required => true, :aliases => '-f', :banner => "Path of the source model."
 	method_option :to, :type => :string, :required => true, :aliases => '-t', :banner => "Path of the target model."
 	method_option :output, :type => :string, :required => false, :aliases => '-o', :banner => "Output path."

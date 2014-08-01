@@ -18,7 +18,7 @@ class MergeTaggedValues < Merge
 
 	def check_new(from_tagged_value)
 
-		@log.debug("Checking TaggedValue of #{@name} '#{from_tagged_value.name}'...") if @only_check
+		@log.debug("Checking TaggedValue '#{@from_tag.full_name}'...") if @only_check
 
 		to_tagged_value = @to_tag.tagged_value_by_name(from_tagged_value.name)
 		if to_tagged_value.nil?			

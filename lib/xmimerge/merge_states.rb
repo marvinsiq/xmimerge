@@ -23,9 +23,10 @@ class MergeStates < Merge
 
 	def check_changes(from_state)
 
-		to_state = @to_activity_graph.state_by_name(@name_state, from_state.name)
+		@log.debug("Checking #{@name_state} '#{from_state.full_name}'")
 
-		@log.debug("Checking #{@name_state} #{from_state.full_name}")
+		to_state = @to_activity_graph.state_by_id(from_state.id)		
+		to_state = @to_activity_graph.state_by_name(from_state.name, @name_state) if to_state.nil?
 
 		if to_state.nil?
 			new_obj from_state

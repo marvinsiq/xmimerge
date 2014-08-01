@@ -20,7 +20,7 @@ class App
 	def self.logger		
 		return @@log unless @@log.nil?
 		@@log = Logger.new($stdout)
-		@@log.level = Logger::INFO
+		@@log.level = Logger::DEBUG
 		@@log.formatter = proc do |severity, datetime, progname, msg|
 		  "[#{severity}] - #{msg}\n"
 		end
@@ -32,8 +32,8 @@ class App
 		return @@spec unless @@spec.nil?
 		@@spec = Gem::Specification.new do |s|
 		  s.name        = 'xmimerge'
-		  s.version     = '0.0.1'
-		  s.date        = '2013-01-29'
+		  s.version     = '0.0.2'
+		  s.date        = '2014-05-30'
 		  s.summary     = "Xmi Merge"
 		  s.description = "A helper gem for merge XMI files"
 		  s.authors     = ["Marcus Siqueira"]
