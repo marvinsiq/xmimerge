@@ -12,7 +12,7 @@ class MergePackages < Merge
 
 		@log.debug("Checking Packages...") if @only_check
 
-		@from.packages.each do |package|
+		@from.packages.sort.each do |package|
 			check_changes package
 		end		
 

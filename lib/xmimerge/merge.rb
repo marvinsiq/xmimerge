@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 class Merge
 
@@ -30,6 +31,8 @@ class Merge
 			@commands.add_command_to_buffer(command)
 			unless @only_check 
 				if @commands.has_command?(command)
+
+					to.send("#{method}=", from.send(method))
 					@log.info "[OK] #{command}"
 				else
 					#@log.info "[NOT] #{command}"

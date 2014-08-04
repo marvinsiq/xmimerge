@@ -15,7 +15,7 @@ class MergeClasses < Merge
 
 	def verify
 
-		@from_package.classes.each do |from_class|		
+		@from_package.classes.sort.each do |from_class|		
 			check_changes(from_class)
 		end
 

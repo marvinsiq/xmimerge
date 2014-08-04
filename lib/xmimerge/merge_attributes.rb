@@ -56,6 +56,7 @@ class MergeAttribute < Merge
 				@commands.add_command_to_buffer(command)
 				unless @only_check 
 					if @commands.has_command?(command)
+						@to_class.remove_attribute(to_attribute)
 						@log.info "[OK] #{command}"
 					else
 						#@log.warn "[NOT] #{command}"
@@ -73,7 +74,7 @@ class MergeAttribute < Merge
 
 		unless @only_check 
 			if @commands.has_command?(command)
-				@to_class.add_xml_attribute(from_attribute.xml.to_xml)					
+				@to_class.add_xml_attribute(from_attribute.xml)					
 				@log.info "[OK] #{command}"
 			else
 				#@log.warn "[NOT] #{command}"
@@ -83,7 +84,7 @@ class MergeAttribute < Merge
 
 	def check_existing_attribute(from_attribute, to_attribute)
 
-		from_full_attribute_name = "#{@from_class.full_name}::#{from_attribute.name}"
+		#from_full_attribute_name = "#{@from_class.full_name}::#{from_attribute.name}"
 
 		# Name
 		#changes = Util.check_change_by_method("name", from_attribute, to_attribute)

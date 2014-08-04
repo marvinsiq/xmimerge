@@ -20,7 +20,7 @@ class App
 	def self.logger		
 		return @@log unless @@log.nil?
 		@@log = Logger.new($stdout)
-		@@log.level = Logger::DEBUG
+		@@log.level = Logger::INFO
 		@@log.formatter = proc do |severity, datetime, progname, msg|
 		  "[#{severity}] - #{msg}\n"
 		end

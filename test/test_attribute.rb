@@ -17,6 +17,12 @@ class AttributeTest < Test::Unit::TestCase
 		file = CommandsFile.new
 		file.load_commands
 		has_command(file, "+ Attribute br.com.xmimerge.XmiMerge::description")
+
+		tmp_file = "/tmp/model.xml"
+		@merge.merge
+		@merge.save(tmp_file)
+		@model = XmiModel.new(tmp_file)
+		assert(@model.classes[0].attributes.size == 3, "The class should have 3 attributes.")
 	end
 
 	def test_02_change_attribute_name
@@ -26,6 +32,13 @@ class AttributeTest < Test::Unit::TestCase
 		file.load_commands
 		has_command(file, "+ Attribute br.com.xmimerge.XmiMerge::description")
 		has_command(file, "- Attribute br.com.xmimerge.XmiMerge::name")
+
+		tmp_file = "/tmp/model.xml"
+		@merge.merge
+		@merge.save(tmp_file)
+		@model = XmiModel.new(tmp_file)
+		assert(@model.classes[0].attributes.size == 2, "The class should have 2 attributes.")
+		assert(!@model.classes[0].attribute_by_name("description").nil?, "The attribute name should be 'description'.")
 	end	
 
 	def test_03_change_attribute_visibility
@@ -34,6 +47,12 @@ class AttributeTest < Test::Unit::TestCase
 		file = CommandsFile.new
 		file.load_commands
 		has_command(file, "* AttributeVisibility br.com.xmimerge.XmiMerge::name {'private' --> 'public'}")
+
+		tmp_file = "/tmp/model.xml"
+		@merge.merge
+		@merge.save(tmp_file)
+		@model = XmiModel.new(tmp_file)
+		assert(@model.classes[0].attribute_by_name("name").visibility == 'public', "The visibility of attribute 'name' should be 'public'. Found: " + @model.classes[0].attribute_by_name("name").visibility)
 	end
 
 	def test_04_change_attribute_type
@@ -42,6 +61,12 @@ class AttributeTest < Test::Unit::TestCase
 		file = CommandsFile.new
 		file.load_commands
 		has_command(file, "* AttributeType br.com.xmimerge.XmiMerge::name {'UML Standard Profile::char' --> 'UML Standard Profile::byte'}")
+
+		#tmp_file = "/tmp/model.xml"
+		#@merge.merge
+		#@merge.save(tmp_file)
+		#@model = XmiModel.new(tmp_file)
+		#assert(@model.classes[0].attribute_by_name("name").type == 'UML Standard Profile::byte', "The type of attribute 'name' should be 'UML Standard Profile::byte'. Found: " + @model.classes[0].attribute_by_name("type").visibility)
 	end
 
 	def test_05_change_attribute_datatype
